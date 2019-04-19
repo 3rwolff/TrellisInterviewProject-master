@@ -39,10 +39,6 @@
 }
 
 .buttonClass {
-  /*
-  margin: auto;
-  width: 250px;
-  */
   text-align: center;
   font-size: 11pt;
   /*font-variant: small-caps;*/
@@ -51,10 +47,17 @@
   border-radius: 3px;
   padding: 3px;
   box-shadow: 2px 2px 2px 0px black;
+  cursor: pointer;
 }
 
 .buttonClass:hover {
   background-color: #87c38f;
+}
+
+.btnAdd {
+    display: none;
+    margin: auto;
+    width: 100px;
 }
 
 .btnDelete {
@@ -68,9 +71,8 @@
   background-color: red;
 }
 
-#btn_add {
-  margin: auto;
-  width: 100px;
+.sensorContainer {
+  padding: 10px 10px 5px 10px;
 }
 
 .sensorNote {

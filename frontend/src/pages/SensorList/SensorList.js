@@ -15,67 +15,6 @@ class SensorList extends React.Component {
     };
   }
 
-//function to retreive or close specific sensor details
-sensorDetails(id) {
-  //first close all open sensor details except the selecte one
-  var ids = document.querySelectorAll( "[id^=sensorDetails]" );
-  for (var i = 0; i < ids.length; i++){
-    if ( i !== id - 1 )
-      document.getElementById( ids[i].id ).innerHTML = "";
-  }  
-
-  //query for selected sensor's details
-  if ( document.getElementById( "sensorDetails_" + id ).innerHTML === "" ){
-    //update button text
-     var buttons = document.querySelectorAll( "[id^=btn_details_]" );
-     for (var j = 0; j < buttons.length; j++){
-      buttons[j].innerHTML = "Open Details";
-     }
-    //update button text for selected sensor
-    document.getElementById( "btn_details_" + id ).innerHTML = "Close Details";
-
-    //fetch data from server
-    fetch(`${serverURL}/selectedSensor?id=${id}`)
-     .then(res => res.json())
-     .then(data => {
-
-      //loop through notes
-      var notesList = `
-            <div>
-              <div id="btn_add" class="buttonClass" onClick="addNote();">Add Note</div>
-            </div><br/>`;
-      for( var i = 0; i < data.notes.length; i++ ){
-        if( i !== 0 )
-          notesList += '<br/>';
-        notesList += `
-          <div class="sensorNote"> 
-            <b>Note Date: </b><span class="sensorData">${data.notes[i].date}</span>
-            <span class="buttonClass btnDelete">&#10006</span>
-            <hr/>
-            <div class="sensorData">${data.notes[i].note_body}</div>
-          </div>`;
-      }//end for
-
-      //format rest of data for return
-      var formattedData = `
-          <div class="sensorInfo"> 
-            <b>ID</b>:<span class="sensorData"> ${data.id} </span>
-            <br/><b>Name:</b><span class="sensorData"> ${data.name} </span>
-            <br/><b>Desc:</b><span class="sensorData"> ${data.description} </span>
-            <br/><br/>${notesList}
-          </div>`;
-
-      document.getElementById("sensorDetails_" + id).innerHTML = formattedData; 
-
-     });//end fetch
-   }//end if
-   else{
-     //else close selected sensor's details if they are open
-     document.getElementById( "sensorDetails_" + id ).innerHTML = "";
-     //update button text
-     document.getElementById( "btn_details_" + id ).innerHTML = "Open Details";
-   }
-}//end sensorDetails()
 
 //function to add a note
 addNote() {
@@ -86,6 +25,78 @@ addNote() {
      .then(data => { console.log( data ) });
 }//end addNote()
 
+//function to retreive or close specific sensor details
+sensorDetails(id) {
+  //first close all open sensor details and notes and hide add buttons, except the selected one
+  var ids = document.querySelectorAll( "[id^=sensorDetails]" );
+  var note_ids = document.querySelectorAll( "[id^=sensorNotes]" );
+  var btn_add_ids = document.querySelectorAll( "[id^=btn_add_]" );
+  for (var i = 0; i < ids.length; i++){
+    if ( i !== id - 1 ){
+      document.getElementById( ids[i].id ).innerHTML = "";
+      document.getElementById( note_ids[i].id ).innerHTML = "";
+      document.getElementById( btn_add_ids[i].id ).style.display = "none";
+    }
+  }
+
+  //query for selected sensor's details
+  if ( document.getElementById( "sensorDetails_" + id ).innerHTML === "" ){
+    //update button text
+     var buttons = document.querySelectorAll( "[id^=btn_details_]" );
+     for (var k = 0; k < buttons.length; k++){
+      buttons[k].innerHTML = "Open Details";
+     }
+    //update button text for selected sensor
+    document.getElementById( "btn_details_" + id ).innerHTML = "Close Details";
+
+    //fetch data from server
+    fetch(`${serverURL}/selectedSensor?id=${id}`)
+     .then(res => res.json())
+     .then(data => {
+
+      //build add note button
+      var notesList = "";
+      //loop through notes
+      for( var i = 0; i < data.notes.length; i++ ){
+        notesList += `
+          <div class="sensorContainer">
+            <div class="sensorNote"> 
+              <b>Note Date: </b><span class="sensorData">${data.notes[i].date}</span>
+              <span class="buttonClass btnDelete">&#10006</span>
+              <hr/>
+              <div class="sensorData">${data.notes[i].note_body}</div>
+            </div>
+          </div>`;
+      }//end for
+
+      document.getElementById("sensorNotes_" + id).innerHTML = notesList;
+
+      //show add note button
+      document.getElementById("btn_add_" + id).style.display = "block";
+
+      //format rest of data for return
+      var formattedData = `
+          <div class="sensorInfo"> 
+            <b>ID</b>:<span class="sensorData"> ${data.id} </span>
+            <br/><b>Name:</b><span class="sensorData"> ${data.name} </span>
+            <br/><b>Desc:</b><span class="sensorData"> ${data.description} </span>
+          </div>`;
+
+      document.getElementById("sensorDetails_" + id).innerHTML = formattedData; 
+
+     });//end fetch
+   }//end if
+   else{
+     //else close selected sensor's details and notes if they are open
+     document.getElementById( "sensorDetails_" + id ).innerHTML = "";
+     document.getElementById( "sensorNotes_" + id ).innerHTML = "";
+     //hide add note button
+     document.getElementById("btn_add_" + id ).style.display = "none";
+
+     //update button text
+     document.getElementById( "btn_details_" + id ).innerHTML = "Open Details";
+   }
+}//end sensorDetails()
 
   componentDidMount() {
     getSensors()
@@ -121,14 +132,15 @@ addNote() {
                 <div className="SensorListName">{name}</div>
                 <div className="SensorListDescription">{description}</div> 
 
-                <div id="btn_add" className="buttonClass" onClick={(e) => this.addNote('test')}>\+\+\+</div>
-
                 <div  className="sensorDetails">
                   <div id={"btn_details_" + id} className="buttonClass" onClick={(e) => this.sensorDetails(id)}>Open Details</div> 
                   <div id={"sensorDetails_" + id}></div>
+
+                  <div id={"btn_add_" + id} className="buttonClass btnAdd" onClick={(e) => this.addNote('test')}>Add Note</div>
+
+                  <div id={"sensorNotes_" + id}></div>
                 </div>
             </div>
-    
           ))
         }
       </div>

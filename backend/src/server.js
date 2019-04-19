@@ -45,12 +45,26 @@ const db = {
     {
       id: 3,
       name: 'East Sensor',
-      description: 'The sensor on the east side'
+      description: 'The sensor on the east side',
+      notes: [
+        {
+          note_id: 1,
+          date: '2031-04-19',
+          note_body: "East Sensor Note 1."
+        }
+      ]
     },
     {
       id: 4,
       name: 'West Sensor',
-      description: 'The western most sensor'
+      description: 'The western most sensor',
+      notes: [
+        {
+          note_id: 1,
+          date: '2041-04-19',
+          note_body: "West Sensor Note 1."
+        }
+      ]
     }
   ]
 };
