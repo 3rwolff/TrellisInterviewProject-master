@@ -1,0 +1,87 @@
+.SensorList {
+  width: 100%;
+}
+
+.SensorListItem {
+  background: white;
+  margin: auto;
+  margin-top: 24px;
+  max-width: 400px;
+  text-align: left;
+  padding: 10px;
+  border-radius: 0px 8px 8px 0px;
+  box-shadow: 0 2px 6px 0 hsla(0, 0%, 0%, 0.2);
+  border-left: 6px solid #87c38f;
+}
+
+.SensorListName {
+  font-size: 2rem;
+}
+
+.SensorListError {
+  margin: 24px;
+}
+
+.SensorListLoading {
+  margin: 24px;
+}
+
+/*adding class for sensor detail view*/
+.sensorDetails {
+  background-color: #eee;
+  padding: none;
+  border-radius: 4px;
+  box-shadow: 3px 3px 3px 1px #87c38f;
+}
+
+.sensorInfo {
+  padding: 10px;
+}
+
+.buttonClass {
+  /*
+  margin: auto;
+  width: 250px;
+  */
+  text-align: center;
+  font-size: 11pt;
+  /*font-variant: small-caps;*/
+  background-color: lightgray;
+  border: solid darkgrey 1px;
+  border-radius: 3px;
+  padding: 3px;
+  box-shadow: 2px 2px 2px 0px black;
+}
+
+.buttonClass:hover {
+  background-color: #87c38f;
+}
+
+.btnDelete {
+  float: right;
+  margin-right: 3px;
+  padding: 0px 3px 0px 3px;
+}
+
+.btnDelete:hover {
+  color: white;
+  background-color: red;
+}
+
+#btn_add {
+  margin: auto;
+  width: 100px;
+}
+
+.sensorNote {
+  padding: 3px 5px 3px 5px;
+  background-color: #ccddcc;
+  border-radius: 3px;
+}
+
+.sensorData {
+  color: darkgreen;
+  font-family: cursive; 
+}
+
+
