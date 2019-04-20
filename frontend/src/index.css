@@ -29,3 +29,40 @@ body {
 #scrollBtn:hover {
 		 background-color: #555;
 }
+
+#theme {
+	display: block;
+	float: right;
+	margin-top: 15px;
+	margin-right: 20px;
+
+}
+
+.theme {
+	display: inline-block;
+	width: 20px;
+	height: 5px;
+	border: 2px solid darkgrey;
+	padding: 5px;
+	font-variant: small-caps;
+	font-size: 10pt;
+}
+
+#light {
+	background: #ededed;
+	border-radius: 5px 0px 0px 5px;
+}
+
+#light:hover {
+	box-shadow: 0px 0px 3px 3px;
+}
+
+#dark {
+	background: #555;
+	border-radius: 0px 5px 5px 0px;
+	color: white;
+}
+
+#dark:hover {
+	box-shadow: 0px 0px 3px 3px;
+}

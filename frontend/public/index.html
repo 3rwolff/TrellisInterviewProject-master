@@ -3,7 +3,7 @@
   <script>
     //add function for scroll to top button
     window.onscroll = function() {hideScrollBtn()};
-    
+
     function scrollMeToTop()
     {
     //scrolls to top of page 
@@ -21,6 +21,33 @@
     else
       document.getElementById("scrollBtn").style.display="none";
     }//end hideScrollBtn()
+
+    function setLight() {
+      document.body.style.background = "#ededed";
+      var el = document.querySelectorAll( "[class^=SensorListItem]" );
+      var el2 = document.querySelectorAll( "[class^=SensorListName]" );
+      var el3 = document.querySelectorAll( "[class^=SensorListDescription]" );
+      for( var i = 0; i < el.length; i++ ){
+        console.log( el[i] );
+      el[i].style.background = "white";
+      el2[i].style.color = "black";
+      el3[i].style.color = "black";
+      }
+    }//end setLight()
+
+    function setDark() {
+      document.body.style.background = "#555";
+      var el = document.querySelectorAll( "[class^=SensorListItem]" );
+      var el2 = document.querySelectorAll( "[class^=SensorListName]" );
+      var el3 = document.querySelectorAll( "[class^=SensorListDescription]" );
+      for( var i = 0; i < el.length; i++ ){
+        console.log( el[i] );
+      el[i].style.background = "black";
+      el2[i].style.color = "white";
+      el3[i].style.color = "white";
+      }
+    }//end setDark()
+
   </script>
 
   <head>
@@ -48,7 +75,12 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
+    <div id="theme">
+      <div id="light" class="theme" onClick="setLight();"></div><!--
+      --><div id="dark" class="theme" onClick="setDark();"></div>
+    </div>
     <div id="root"></div>
+   
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

@@ -184,8 +184,8 @@ sensorDetails(id, refresh=false) {
           sensors.map(({ id, name, description }) => (
           
             <div key={id} className="SensorListItem">
-                <div className="SensorListName">{name}</div>
-                <div className="SensorListDescription">{description}</div> 
+                <div className="SensorListName fontTheme">{name}</div>
+                <div className="SensorListDescription fontTheme">{description}</div> 
 
                 <div  className="sensorDetails">
                   <div id={"btn_details_" + id} className="buttonClass" onClick={(e) => this.sensorDetails(id)}>Open Details</div> 
