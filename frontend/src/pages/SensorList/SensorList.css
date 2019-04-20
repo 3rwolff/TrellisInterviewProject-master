@@ -54,10 +54,31 @@
   background-color: #87c38f;
 }
 
+#note_container {
+  padding: 0px 5px 5px 5px;
+}
+
 .btnAdd {
     display: none;
-    margin: auto;
     width: 100px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+textarea {
+  display: none;
+  margin: auto;
+  background-color: #ccddcc;
+  font-family: cursive;
+  color: darkgreen;
+  font-size: 11pt;
+  padding: 3px 3px 3px 3px;
+  border-radius: 3px;
+}
+
+textarea:focus {
+  outline: none;
+  border: 2px solid green;
 }
 
 .btnDelete {

@@ -1,4 +1,5 @@
 const express = require('express');
+var bodyParser = require('body-parser');//added to parse POST body
 console.log("%%% server.js was called. %%%");
 // In-memory 'database' object
 const db = {
@@ -71,6 +72,7 @@ const db = {
 
 // Create express app
 const app = express();
+app.use(bodyParser.json());//added to help parse POST body
 
 app.use(function(req, res, next) {
   // Allow CORS
@@ -95,11 +97,26 @@ app.get('/selectedSensor', (req, res) => {
   //console.log(db.sensors[req.query.id - 1]);
 });
 
-//added route to add notes
-app.get('/addNote', (req, res) => {
-  console.log(`%%% --- addNote() was called. --- %%%`);
-  res.json( db.sensors[req.query.id - 1]);//adjust for first array element
+//added route to save a note
+app.post('/saveNote', (req, res) => {
+  console.log(`%%% --- POST saveNote() was called. --- %%%`);
+  
+  //console.log( req.body );
+  new_note_index = db.sensors[req.body.id - 1].notes.length + 1;
+  var today = new Date().toISOString().slice(0, 10);
+
+  //save note in in-memory db constant
+  db.sensors[req.body.id - 1].notes.push({ 
+                            id: new_note_index, 
+                            date: today, 
+                            note_body: req.body.notebody 
+                          });
+
+  console.log(db.sensors[req.body.id - 1].notes);
+
+  //res.json( db.sensors[req.query.id - 1]);//adjust for first array element
   //console.log(db.sensors[req.query.id - 1]);
+  res.sendStatus(201);//created successfully
 });
 
 const PORT = 9000;
