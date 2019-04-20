@@ -114,8 +114,6 @@ app.post('/saveNote', (req, res) => {
 
   console.log(db.sensors[req.body.id - 1].notes);
 
-  //res.json( db.sensors[req.query.id - 1]);//adjust for first array element
-  //console.log(db.sensors[req.query.id - 1]);
   res.sendStatus(201);//created successfully
 });
 
