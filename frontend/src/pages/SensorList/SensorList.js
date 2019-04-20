@@ -57,17 +57,23 @@ saveNote(id) {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"}  
-    });
+    }).then(data => this.sensorDetails(id, true));
 
    /* fetch(`${serverURL}/saveNote`)
      .then(res => res.json())
      .then(data => { console.log( data ) });*/
+
+    //save button was pressed, reset values 
+    document.getElementById("txt_note_" + id).style.display = "none";
+    document.getElementById("btn_add_" + id).innerHTML = "Add Note";
+    document.getElementById("btn_save_" + id).style.display = "none";
+    document.getElementById("txt_note_" + id).value = "";//reset text area after saving
     }
 
 }//end saveNote()
 
 //function to retreive or close specific sensor details
-sensorDetails(id) {
+sensorDetails(id, refresh=false) {
   //first close all open sensor details and notes and hide add buttons, except the selected one
   var ids = document.querySelectorAll( "[id^=sensorDetails]" );//sensor details
   var note_ids = document.querySelectorAll( "[id^=sensorNotes]" );//sensor notes
@@ -86,7 +92,7 @@ sensorDetails(id) {
   }
 
   //query for selected sensor's details
-  if ( document.getElementById( "sensorDetails_" + id ).innerHTML === "" ){
+  if ( refresh || document.getElementById( "sensorDetails_" + id ).innerHTML === "" ){
     //update button text
      var buttons = document.querySelectorAll( "[id^=btn_details_]" );
      for (var k = 0; k < buttons.length; k++){
@@ -104,7 +110,6 @@ sensorDetails(id) {
       var notesList = "";
       //loop through notes
       for( var i = data.notes.length - 1; i >= 0; i-- ){
-        console.log(i);
         notesList += `
           <div class="sensorContainer">
             <div class="sensorNote"> 
@@ -139,7 +144,9 @@ sensorDetails(id) {
      document.getElementById( "sensorNotes_" + id ).innerHTML = "";
      //hide add note button
      document.getElementById("btn_add_" + id ).style.display = "none";
+     document.getElementById( "btn_add_" + id ).innerHTML = "Add Note";
      document.getElementById("txt_note_" + id ).style.display = "none";
+     document.getElementById("btn_save_" + id).style.display = "none";
 
      //update button text
      document.getElementById( "btn_details_" + id ).innerHTML = "Open Details";

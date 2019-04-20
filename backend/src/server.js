@@ -1,5 +1,5 @@
 const express = require('express');
-var bodyParser = require('body-parser');//added to parse POST body
+var bodyParser = require('body-parser');//added middleware to parse POST body
 console.log("%%% server.js was called. %%%");
 // In-memory 'database' object
 const db = {
