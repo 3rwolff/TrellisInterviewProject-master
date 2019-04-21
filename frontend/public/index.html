@@ -6,8 +6,7 @@
 
     function scrollMeToTop()
     {
-    //scrolls to top of page 
-    console.log("scrollMeToTop() was called") 
+    //scrolls to top of page  
     document.documentElement.scrollTop = 0;//window.scrollTo(0,0);//also works
     document.body.scrollTop = 0;
     }//end scrollMeToTop()
@@ -22,26 +21,26 @@
       document.getElementById("scrollBtn").style.display="none";
     }//end hideScrollBtn()
 
+    //set light theme
     function setLight() {
       document.body.style.background = "#ededed";
       var el = document.querySelectorAll( "[class^=SensorListItem]" );
       var el2 = document.querySelectorAll( "[class^=SensorListName]" );
       var el3 = document.querySelectorAll( "[class^=SensorListDescription]" );
       for( var i = 0; i < el.length; i++ ){
-        console.log( el[i] );
       el[i].style.background = "white";
       el2[i].style.color = "black";
       el3[i].style.color = "black";
       }
     }//end setLight()
 
+    //set dark theme
     function setDark() {
       document.body.style.background = "#555";
       var el = document.querySelectorAll( "[class^=SensorListItem]" );
       var el2 = document.querySelectorAll( "[class^=SensorListName]" );
       var el3 = document.querySelectorAll( "[class^=SensorListDescription]" );
       for( var i = 0; i < el.length; i++ ){
-        console.log( el[i] );
       el[i].style.background = "black";
       el2[i].style.color = "white";
       el3[i].style.color = "white";
@@ -58,8 +57,8 @@
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="../favicon.ico">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.

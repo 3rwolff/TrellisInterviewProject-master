@@ -10,6 +10,7 @@ body {
   background: #ededed;
 }
 
+/*add scroll to top button*/
 #scrollBtn {
 	 display: none;
 	 position: fixed;
@@ -30,6 +31,7 @@ body {
 		 background-color: #666;
 }
 
+/*added adjustable theme colors*/
 #theme {
 	display: block;
 	float: right;

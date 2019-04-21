@@ -4,7 +4,6 @@ import './SensorList.css';
 import { getSensors } from '../../services/SensorService';
 const serverURL = 'http://localhost:9000';
 
-//console.log("%%% SensorList.js was called. %%%");
 class SensorList extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +13,6 @@ class SensorList extends React.Component {
       error: '',
     };
   }
-
 
 //function to start adding a note
 addNote(id) {
@@ -36,8 +34,6 @@ addNote(id) {
 
 //function to save a note
 saveNote(id) {
-  console.log("saveNote() was called" + id)
-  //console.log(document.getElementById("txt_note_" + id).value);
   if(document.getElementById("txt_note_" + id).value === ""){
     //don't allow empty notes to be saved
     alert("Your note can't be empty.")
@@ -45,8 +41,6 @@ saveNote(id) {
   else{
     //send data to server
     var notebody = document.getElementById("txt_note_" + id).value;
-
-    /*fetch(`${serverURL}/saveNote?id=${id}&notebody=${notebody}`)*/
 
     fetch(`${serverURL}/saveNote`, {
       method: 'POST',
@@ -59,10 +53,6 @@ saveNote(id) {
         "Content-Type": "application/json"}  
     }).then(data => this.sensorDetails(id, true));
 
-   /* fetch(`${serverURL}/saveNote`)
-     .then(res => res.json())
-     .then(data => { console.log( data ) });*/
-
     //save button was pressed, reset values 
     document.getElementById("txt_note_" + id).style.display = "none";
     document.getElementById("btn_add_" + id).innerHTML = "Add Note";
@@ -71,6 +61,23 @@ saveNote(id) {
     }
 
 }//end saveNote()
+
+//function to delete a note
+deleteNote(id, note_id) {
+  console.log("deleteNote() was called!!!!!!")
+
+fetch(`${serverURL}/deleteNote`, {
+      method: 'POST',
+      body: JSON.stringify({
+        'id': id,
+        'note_id': note_id
+      }),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"}  
+    }).then(data => this.sensorDetails(id, true));
+
+}//end deleteNote()
 
 //function to retreive or close specific sensor details
 sensorDetails(id, refresh=false) {
@@ -106,6 +113,9 @@ sensorDetails(id, refresh=false) {
      .then(res => res.json())
      .then(data => {
 
+      ///////////////////////////////////////////////////////////////////////////
+      // TODO: setup delete button to handle clicks outside of React component //
+      ///////////////////////////////////////////////////////////////////////////
       //build add note button
       var notesList = "";
       //loop through notes
@@ -114,7 +124,7 @@ sensorDetails(id, refresh=false) {
           <div class="sensorContainer">
             <div class="sensorNote"> 
               <b>Note Date: </b><span class="sensorData">${data.notes[i].date}</span>
-              <span class="buttonClass btnDelete">&#10006</span>
+              <span class="buttonClass btnDelete" onClick={this.deleteNote(id, ${data.notes[i].note_id} )}>&#10006</span>
               <hr/>
               <div class="sensorData">${data.notes[i].note_body}</div>
             </div>

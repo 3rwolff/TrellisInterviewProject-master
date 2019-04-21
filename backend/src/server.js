@@ -87,6 +87,7 @@ app.use(function(req, res, next) {
 app.get('/sensors', (req, res) => {
   // Return all sensors
   res.json(db.sensors);
+  res.sendStatus(200);//successfull
 });
 
 //added route to get specified sensor details
@@ -94,15 +95,14 @@ app.get('/selectedSensor', (req, res) => {
   // Return specified sensor
   console.log(`%%% selectedSensor route was called for id: ${req.query.id} %%%`);
   res.json( db.sensors[req.query.id - 1]);//adjust for first array element
-  //console.log(db.sensors[req.query.id - 1]);
+  res.sendStatus(200);//successfull
 });
 
 //added route to save a note
 app.post('/saveNote', (req, res) => {
-  console.log(`%%% --- POST saveNote() was called. --- %%%`);
-  
-  //console.log( req.body );
-  new_note_index = db.sensors[req.body.id - 1].notes.length + 1;
+  console.log(`%%% saveNote() was called %%%`);
+ 
+  var new_note_index = db.sensors[req.body.id - 1].notes.length + 1;
   var today = new Date().toISOString().slice(0, 10);
 
   //save note in in-memory db constant
@@ -112,9 +112,16 @@ app.post('/saveNote', (req, res) => {
                             note_body: req.body.notebody 
                           });
 
-  console.log(db.sensors[req.body.id - 1].notes);
-
   res.sendStatus(201);//created successfully
+});
+
+//added route to delete a note
+app.post('/deleteNote', (req, res) => {
+  console.log(`%%% deleteNote() was called %%%`);
+  
+  //remove selected note
+  db.sensors[req.body.id - 1].notes.splice(req.body.note_id - 1, 1);
+  res.sendStatus(200);//successfull
 });
 
 const PORT = 9000;
